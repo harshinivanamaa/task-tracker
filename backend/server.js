@@ -10,13 +10,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "..", "frontend")));
+/* FRONTEND FOLDER */
+const frontendPath = path.join(__dirname, "../frontend");
 
+/* STATIC FILES */
+app.use(express.static(frontendPath));
+
+/* HOME PAGE */
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
+  res.sendFile(path.join(frontendPath, "index.html"));
 });
 
-/* 🔹 TEST API */
+/* TEST API */
 app.get("/api/tasks", async (req, res) => {
   try {
     const { data, error } = await supabase
@@ -24,10 +29,13 @@ app.get("/api/tasks", async (req, res) => {
       .select("*");
 
     if (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        error: error.message,
+      });
     }
 
     res.json(data);
+
   } catch (err) {
     res.status(500).json({
       message: "Server error",
@@ -35,16 +43,18 @@ app.get("/api/tasks", async (req, res) => {
   }
 });
 
-/* 🔹 CONNECT ROUTES */
+/* TASK ROUTES */
 app.use("/tasks", taskRoutes);
 
-/* 🔹 FRONTEND ROUTE FIX */
+/* FRONTEND ROUTE FIX */
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
+  res.sendFile(path.join(frontendPath, "index.html"));
 });
 
+/* PORT */
 const PORT = process.env.PORT || 5000;
 
+/* START SERVER */
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
