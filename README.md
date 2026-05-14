@@ -1,89 +1,172 @@
-                   Task Tracker   
-                    Project Description
-Introduction
+# 📌 Task Tracker
 
-The Task Tracker is a full-stack web application developed to help users organize and manage their daily tasks efficiently. The application provides a simple and user-friendly interface where users can add, update, complete, and delete tasks according to their needs. This project was created to understand the practical implementation of modern web development technologies including frontend development, backend server management, and cloud database integration.
-The main purpose of this project is to improve productivity by maintaining tasks in a structured and organized way. Instead of remembering activities manually, users can store their work digitally and track their progress easily.
+A full-stack Task Tracker web application developed to help users manage daily tasks efficiently through a clean, responsive, and interactive interface. This project allows users to create tasks, organize pending and completed work, manage deleted tasks through a trash system, and monitor task progress in real time.
+---
+# 📖 Overview
+The Task Tracker application is designed to simplify daily task management by providing a modern web-based productivity solution. The system helps users organize their workflow digitally instead of maintaining tasks manually.
+The platform includes:
+- Pending Tasks Management
+- Completed Tasks Management
+- Trash / Deleted Tasks Management
+The application supports task creation, editing, completion tracking, restore functionality, dark mode, search functionality, and real-time cloud database integration.
+---
+# ✨ Key Features
+## 👤 User Features
+- Add New Tasks
+- Edit Existing Tasks
+- Delete Tasks
+- Restore Deleted Tasks
+- Mark Tasks as Completed
+- Search Tasks Dynamically
+- Filter Pending & Completed Tasks
+- Dark Mode Support
+- Responsive UI Design
+---
+# 📊 Task Management Features
+- Real-time Task Updates
+- Dynamic Task Search
+- Pending Task Tracking
+- Completed Task Tracking
+- Trash Management System
+- Task Priority Levels
+- Deadline Tracking
+- Overdue Task Highlighting
+---
+# 🛠️ Tech Stack
+## Frontend
+- HTML5
+- CSS3
+- JavaScript
+- Responsive UI Design
+## Backend
+- Node.js
+ Express.js
+## Database & Backend Services
+- Supabase
+## Development Tools
+- VS Code
+- Git & GitHub
+- Postman
+- Nodemon
+---
+# 📂 Project Architecture
+```text
+TASK-TRACKER/
+│
+├── frontend/
+│   ├── index.html
+│   ├── pending.html
+│   ├── completed.html
+│   ├── deleted.html
+│   ├── style.css
+│   └── script.js
+│
+├── backend/
+│   ├── config/
+│   ├── routes/
+│   ├── server.js
+│   ├── package.json
+│   └── .env
+│
+├── README.md
+└── .gitignore
+```
+---
+# ⚙️ Installation & Setup Guide
 
-Project objective
-•	The objective of the Task Tracker project is:
-•	To develop a responsive task management system
-•	To understand full-stack web development concepts
-•	To learn frontend and backend integration
-•	To connect a web application with a cloud database
-•	To perform CRUD operations (Create, Read, Update, Delete)
-•	To improve practical coding and deployment skills
+## Step 1 — Clone Repository
 
-Technologies used
-HTML:    Creates webpage structure
-CSS:         Designs and styles the interface   
-JavaScript: Adds functionality and interactivity
-Node.js:     Runs backend server
-Express.js:  Handles server routing and APIs
-Supabase:   Stores and manages task data
-Nodemon:   Automatically restarts server during development
-VS Code:   Development environment
-GitHub:     Version control and project hosting
+```bash
+git clone https://github.com/yourusername/task-tracker.git
+```
 
-System Architecture
-The project follows the client server architecture
-User Interface (Frontend)
-             ↓
-JavaScript Fetch Requests
-             ↓
-Node.js + Express Server
-            ↓
-Supabase Database
+## Step 2 — Navigate to Project
 
-frontend
-The frontend is designed using HTML, CSS, and JavaScript. It provides a clean and interactive interface for users to manage tasks.
-Backend
-The backend is developed using Node.js and Express.js. It processes user requests, handles APIs, and communicates with the database.
-Database
-Supabase is used as the cloud database to securely store task information. It allows real-time data management and easy database connectivity.
+```bash
+cd task-tracker
+```
 
-Features of the Project
-•	Add new tasks
-•	View all tasks
-•	Update existing tasks
-•	Delete unwanted tasks
-•	Mark tasks as completed
-•	Responsive and user-friendly interface
-•	Real-time database connectivity
-•	Organized task management system
+## Step 3 — Install Dependencies
 
-Working Procedure
-1.	The user enters a task in the input field.
-2.	The frontend sends the task data to the backend server.
-3.	The backend validates the request.
-4.	The task information is stored in the Supabase database.
-5.	The stored tasks are retrieved and displayed on the webpage.
-6.	Users can edit, complete, or remove tasks anytime.
+```bash
+npm install
+```
 
-Advantages
-•	Easy to use
-•	Saves time and improves productivity
-•	Helps maintain task organization
-•	Provides practical experience in full-stack development
-•	Cloud database support
-•	Can be accessed from different devices after deployment
+## Step 4 — Configure Environment Variables
 
-Challenges Faced During Development
-•	Connecting frontend with backend
-•	Handling API requests
-•	Configuring Supabase database
-•	Managing server errors
-•	Deploying localhost project online
-These challenges helped in improving debugging and development skills.
+Create a `.env` file inside the backend folder and configure:
 
-Future Enhancements
-•	User authentication system
-•	Due dates and reminders
-•	Task priority levels
-•	Dark mode support
-•	Mobile application version
-•	Notification system
-•	Team collaboration features
+```env
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_key
+PORT=5000
+```
 
-Conclusion
-The Task Tracker project successfully demonstrates the implementation of a full-stack web application using modern web technologies. It provides an efficient solution for managing daily tasks while improving understanding of frontend development, backend server handling, database integration, and project deployment. This project enhanced practical knowledge, problem-solving skills, and real-world development expe
+## Step 5 — Start Development Server
+
+```bash
+npm run dev
+```
+
+or
+
+```bash
+node server.js
+```
+---
+# 🔄 System Workflow
+
+1. User enters task details through the frontend interface.
+2. Frontend sends task data to the backend using Fetch API.
+3. Backend validates and processes requests.
+4. Task data is stored securely in Supabase database.
+5. Tasks are retrieved dynamically and displayed on webpages.
+6. Users can update, complete, delete, or restore tasks anytime.
+---
+# 🔐 Security & Validation
+- Environment Variable Protection
+- Input Validation
+- Secure Database Integration
+- Dynamic CRUD Operations
+- Task Status Management
+---
+# 📊 Dashboard Features
+- Total Tasks Counter
+- Pending Tasks Counter
+- Completed Tasks Counter
+- Dynamic Search Functionality
+- Dark Mode Interface
+- Responsive Dashboard Design
+---
+# 🚀 Future Enhancements
+- User Authentication System
+- Task Reminder Notifications
+- Team Collaboration Features
+- Task Categories & Labels
+- Calendar Integration
+- Mobile Application Version
+- Advanced Analytics Dashboard
+---
+# 🎯 Learning Outcomes
+This project helped in understanding:
+- Full Stack Web Development
+- REST API Development
+- Database Integration
+- Frontend & Backend Communication
+- Cloud Database Management
+- Git & GitHub Version Control
+- Deployment Process
+- Debugging & Troubleshooting
+---
+# 👩‍💻 Developed By
+Harshini  
+B.Tech Student | Full Stack Web Development Enthusiast
+---
+# 📌 GitHub Repository
+https://github.com/yourusername/task-tracker
+---
+# 📄 License
+This project is licensed under the MIT License.
+---
+# 📌 About
+Task Tracker is a modern full-stack task management application built using HTML, CSS, JavaScript, Node.js, Express.js, and Supabase with task organization, trash management, dark mode, and responsive UI support.
