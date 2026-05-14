@@ -38,6 +38,11 @@ app.get("/api/tasks", async (req, res) => {
 /* 🔹 CONNECT ROUTES */
 app.use("/tasks", taskRoutes);
 
+/* 🔹 FRONTEND ROUTE FIX */
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, "0.0.0.0", () => {
