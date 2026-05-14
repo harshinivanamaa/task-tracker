@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deleted Tasks</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      background:linear-gradient(135deg,#232526,#414345);
+      color:white;
+      min-height:100vh;
+    }
+
+    /* NAVBAR */
+
+    .navbar{
+      width:100%;
+      padding:18px 40px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:rgba(255,255,255,0.05);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo{
+      font-size:30px;
+      font-weight:700;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:15px;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color:white;
+      padding:10px 18px;
+      border-radius:10px;
+      transition:0.3s;
+      background:rgba(255,255,255,0.05);
+    }
+
+    .nav-links a:hover{
+      background:#e74c3c;
+    }
+
+    .active{
+      background:#e74c3c !important;
+    }
+
+    /* MAIN */
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+      padding:30px 20px;
+    }
+
+    h1{
+      text-align:center;
+      margin-bottom:25px;
+      font-size:45px;
+    }
+
+    /* SEARCH */
+
+    #search{
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:12px;
+      outline:none;
+      margin-bottom:15px;
+      font-size:16px;
+    }
+
+    /* STATS */
+
+    #stats{
+      text-align:center;
+      margin-bottom:15px;
+      color:#ddd;
+      font-size:20px;
+      font-weight:600;
+    }
+
+    /* TOP BUTTON */
+
+    .top-btn{
+      text-align:center;
+      margin-bottom:25px;
+    }
+
+    .dark-btn{
+      background:#0984e3;
+      color:white;
+      border:none;
+      padding:12px 18px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      transition:0.3s;
+    }
+
+    .dark-btn:hover{
+      transform:scale(1.05);
+    }
+
+    /* GRID */
+
+    #taskList{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:20px;
+    }
+
+    /* CARD */
+
+    .card{
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(12px);
+      padding:20px;
+      border-radius:20px;
+      transition:0.3s;
+      box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+    }
+
+    .card h3{
+      font-size:26px;
+      margin-bottom:8px;
+    }
+
+    .card p{
+      margin:6px 0;
+      font-size:17px;
+    }
+
+    /* STATUS */
+
+    .deleted{
+      color:#ff7675;
+      font-weight:bold;
+    }
+
+    /* PRIORITY */
+
+    .high{
+      color:#ff4d4d;
+      font-weight:bold;
+    }
+
+    .medium{
+      color:#feca57;
+      font-weight:bold;
+    }
+
+    .low{
+      color:#1dd1a1;
+      font-weight:bold;
+    }
+
+    /* BUTTONS */
+
+    .btns{
+      margin-top:15px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      border:none;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      color:white;
+      transition:0.3s;
+    }
+
+    button:hover{
+      transform:scale(1.05);
+    }
+
+    .restore{
+      background:#00b894;
+    }
+
+    .delete{
+      background:#e74c3c;
+    }
+
+    /* EMPTY */
+
+    .empty{
+      text-align:center;
+      margin-top:40px;
+      color:#ccc;
+      font-size:20px;
+    }
+
+    /* DARK */
+
+    .dark{
+      background:#111;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <div class="navbar">
+
+    <div class="logo">🗑 Task Manager</div>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="pending.html">Pending</a>
+      <a href="completed.html">Completed</a>
+      <a href="deleted.html" class="active">Trash</a>
+    </div>
+
+  </div>
+
+  <!-- MAIN -->
+
+  <div class="container">
+
+    <h1>🗑️ Trash / Deleted Tasks</h1>
+
+    <input 
+      type="text"
+      id="search"
+      placeholder="Search deleted tasks..."
+    >
+
+    <div id="stats"></div>
+
+    <div class="top-btn">
+      <button class="dark-btn" onclick="toggleDark()">
+        🌙 Toggle Dark
+      </button>
+    </div>
+
+    <div id="taskList"></div>
+
+  </div>
+
+<script>
+
+const API = "http://localhost:5000/tasks/deleted";
+
+let allTasks = [];
+
+/* LOAD */
+
+async function loadTasks(){
+
+  const res = await fetch(API);
+
+  const data = await res.json();
+
+  allTasks = data;
+
+  displayTasks(allTasks);
+
+  updateStats();
+}
+
+/* DISPLAY */
+
+function displayTasks(tasks){
+
+  const list = document.getElementById("taskList");
+
+  list.innerHTML = "";
+
+  if(tasks.length === 0){
+
+    list.innerHTML = `
+      <p class="empty">
+        No deleted tasks 💤
+      </p>
+    `;
+
+    return;
+  }
+
+  tasks.forEach(task => {
+
+    const div = document.createElement("div");
+
+    div.className = "card";
+
+    div.innerHTML = `
+
+      <h3>${task.title}</h3>
+
+      <p>${task.subject}</p>
+
+      <p class="deleted">
+        Deleted
+      </p>
+
+      <p class="${task.priority || 'medium'}">
+        Priority: ${task.priority || "medium"}
+      </p>
+
+      <p>
+        ${task.deadline || ""}
+      </p>
+
+      <div class="btns">
+
+        <button
+          class="restore"
+          onclick="restoreTask(${task.id})">
+          ♻ Restore
+        </button>
+
+        <button
+          class="delete"
+          onclick="deleteForever(${task.id})">
+          ❌ Delete
+        </button>
+
+      </div>
+
+    `;
+
+    list.appendChild(div);
+
+  });
+
+}
+
+/* RESTORE */
+
+async function restoreTask(id){
+
+  await fetch(
+    `http://localhost:5000/tasks/restore/${id}`,
+    {
+      method:"PUT"
+    }
+  );
+
+  loadTasks();
+}
+
+/* DELETE FOREVER */
+
+async function deleteForever(id){
+
+  const confirmDelete =
+    confirm("Delete permanently?");
+
+  if(!confirmDelete) return;
+
+  await fetch(
+    `http://localhost:5000/tasks/permanent/${id}`,
+    {
+      method:"DELETE"
+    }
+  );
+
+  loadTasks();
+}
+
+/* SEARCH */
+
+document
+.getElementById("search")
+.addEventListener("input",(e)=>{
+
+  const value =
+    e.target.value.toLowerCase();
+
+  const filtered =
+    allTasks.filter(task =>
+      task.title
+      .toLowerCase()
+      .includes(value)
+    );
+
+  displayTasks(filtered);
+
+});
+
+/* STATS */
+
+function updateStats(){
+
+  document.getElementById("stats")
+  .innerText =
+  `Trash Count: ${allTasks.length}`;
+
+}
+
+/* DARK MODE */
+
+function toggleDark(){
+
+  document.body.classList.toggle("dark");
+
+}
+
+/* INIT */
+
+loadTasks();
+
+</script>
+
+</body>
+</html>

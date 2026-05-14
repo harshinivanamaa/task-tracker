@@ -1,0 +1,157 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Task Tracker</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+      <h2>📌 Task Manager</h2>
+
+      <div>
+
+        <a href="index.html" class="active">
+          Home
+        </a>
+
+        <a href="pending.html">
+          Pending
+        </a>
+
+        <a href="completed.html">
+          Completed
+        </a>
+
+        <a href="deleted.html">
+          Trash
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- TITLE -->
+
+    <h1>🚀 Task Tracker</h1>
+
+    <!-- SEARCH -->
+
+    <input
+      type="text"
+      id="search"
+      placeholder="🔍 Search tasks..."
+    >
+
+    <!-- STATS -->
+
+    <h3 id="stats"></h3>
+
+    <!-- FORM -->
+
+    <form id="taskForm">
+
+      <input
+        type="text"
+        id="title"
+        placeholder="Task Title"
+        required
+      >
+
+      <input
+        type="text"
+        id="subject"
+        placeholder="Subject"
+        required
+      >
+
+      <input
+        type="date"
+        id="deadline"
+      >
+
+      <select id="priority">
+
+        <option value="low">
+          Low
+        </option>
+
+        <option value="medium" selected>
+          Medium
+        </option>
+
+        <option value="high">
+          High
+        </option>
+
+      </select>
+
+      <button type="submit">
+        ➕ Add Task
+      </button>
+
+    </form>
+
+    <!-- FILTERS -->
+
+    <div class="filter">
+
+      <button onclick="filterTasks('all')">
+        All
+      </button>
+
+      <button onclick="filterTasks('pending')">
+        Pending
+      </button>
+
+      <button onclick="filterTasks('completed')">
+        Completed
+      </button>
+
+    </div>
+
+    <!-- INFO BOX -->
+
+    <div class="info-box">
+
+      <h3>📌 Task Dashboard</h3>
+
+      <p>
+        Add tasks from this page and manage them
+        from Pending, Completed and Trash pages.
+      </p>
+
+    </div>
+
+    <!-- DARK MODE -->
+
+    <button
+      class="dark-btn"
+      onclick="toggleDark()"
+    >
+      🌙 Toggle Dark
+    </button>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
