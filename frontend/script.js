@@ -1,27 +1,34 @@
 // script.js
 
-const API = "http://localhost:5000/tasks";
+const API = "/tasks";
 
-const form =
-  document.getElementById("taskForm");
+const form = document.getElementById("taskForm");
 
 let allTasks = [];
 
 /* LOAD TASKS */
 
-async function loadTasks(){
+async function loadTasks() {
 
-  const res = await fetch(API);
+  try {
 
-  allTasks = await res.json();
+    const res = await fetch(API);
 
-  updateStats();
+    allTasks = await res.json();
+
+    updateStats();
+
+  } catch (err) {
+
+    console.log("Error loading tasks", err);
+
+  }
 
 }
 
 /* ADD TASK */
 
-form.addEventListener("submit", async (e)=>{
+form.addEventListener("submit", async (e) => {
 
   e.preventDefault();
 
@@ -37,58 +44,65 @@ form.addEventListener("submit", async (e)=>{
   const priority =
     document.getElementById("priority").value;
 
-  await fetch(`${API}/add`,{
+  try {
 
-    method:"POST",
+    await fetch(`${API}/add`, {
 
-    headers:{
-      "Content-Type":"application/json"
-    },
+      method: "POST",
 
-    body:JSON.stringify({
-      title,
-      subject,
-      deadline,
-      priority
-    })
+      headers: {
+        "Content-Type": "application/json"
+      },
 
-  });
+      body: JSON.stringify({
+        title,
+        subject,
+        deadline,
+        priority
+      })
 
-  form.reset();
+    });
 
-  loadTasks();
+    form.reset();
+
+    loadTasks();
+
+  } catch (err) {
+
+    console.log("Error adding task", err);
+
+  }
 
 });
 
 /* SEARCH */
 
 document
-.getElementById("search")
-.addEventListener("input",(e)=>{
+  .getElementById("search")
+  .addEventListener("input", (e) => {
 
-  const value =
-    e.target.value.toLowerCase();
+    const value =
+      e.target.value.toLowerCase();
 
-  const filtered =
-    allTasks.filter(task =>
-      task.title
-      .toLowerCase()
-      .includes(value)
-    );
+    const filtered =
+      allTasks.filter(task =>
+        task.title.toLowerCase().includes(value)
+      );
 
-  updateSearchStats(filtered.length);
+    updateSearchStats(filtered.length);
 
-});
+  });
 
 /* FILTER */
 
-function filterTasks(type){
+function filterTasks(type) {
 
-  if(type === "all"){
+  if (type === "all") {
 
     updateSearchStats(allTasks.length);
 
     return;
+
   }
 
   const filtered =
@@ -102,7 +116,7 @@ function filterTasks(type){
 
 /* STATS */
 
-function updateStats(){
+function updateStats() {
 
   const total =
     allTasks.length;
@@ -117,27 +131,25 @@ function updateStats(){
       task.status === "pending"
     ).length;
 
-  document.getElementById("stats")
-  .innerText =
+  document.getElementById("stats").innerText =
 
-  `Total Tasks: ${total} | Pending: ${pending} | Completed: ${completed}`;
+    `Total Tasks: ${total} | Pending: ${pending} | Completed: ${completed}`;
 
 }
 
 /* SEARCH STATS */
 
-function updateSearchStats(count){
+function updateSearchStats(count) {
 
-  document.getElementById("stats")
-  .innerText =
+  document.getElementById("stats").innerText =
 
-  `Matching Tasks: ${count}`;
+    `Matching Tasks: ${count}`;
 
 }
 
 /* DARK MODE */
 
-function toggleDark(){
+function toggleDark() {
 
   document.body.classList.toggle("dark");
 
