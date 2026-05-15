@@ -285,7 +285,7 @@
 
 <script>
 
-const API = "http://localhost:5000/tasks";
+const API = "https://task-tracker-8tnp.onrender.com/tasks";
 
 let allTasks = [];
 
@@ -414,17 +414,8 @@ async function editTask(id){
 
   if(!title) return;
 
-  await fetch(`${API}/${id}`,{
-    method:"PUT",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify({
-      title
-    })
-  });
+  alert("Edit feature not added in backend yet");
 
-  loadTasks();
 }
 
 /* SEARCH */

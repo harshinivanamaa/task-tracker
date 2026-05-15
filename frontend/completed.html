@@ -274,7 +274,7 @@
 
 <script>
 
-const API = "http://localhost:5000/tasks";
+const API = "https://task-tracker-8tnp.onrender.com/tasks";
 
 let allTasks = [];
 
@@ -375,17 +375,8 @@ async function deleteTask(id){
 
 async function undoTask(id){
 
-  await fetch(`${API}/${id}`,{
-    method:"PUT",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify({
-      status:"pending"
-    })
-  });
+  alert("Undo feature not added in backend yet");
 
-  loadTasks();
 }
 
 /* SEARCH */

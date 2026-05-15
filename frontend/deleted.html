@@ -269,7 +269,7 @@
 
 <script>
 
-const API = "http://localhost:5000/tasks/deleted";
+const API = "https://task-tracker-8tnp.onrender.com/tasks";
 
 let allTasks = [];
 
@@ -277,7 +277,7 @@ let allTasks = [];
 
 async function loadTasks(){
 
-  const res = await fetch(API);
+  const res = await fetch(`${API}/deleted`);
 
   const data = await res.json();
 
@@ -360,7 +360,7 @@ function displayTasks(tasks){
 async function restoreTask(id){
 
   await fetch(
-    `http://localhost:5000/tasks/restore/${id}`,
+    `${API}/restore/${id}`,
     {
       method:"PUT"
     }
@@ -379,7 +379,7 @@ async function deleteForever(id){
   if(!confirmDelete) return;
 
   await fetch(
-    `http://localhost:5000/tasks/permanent/${id}`,
+    `${API}/permanent/${id}`,
     {
       method:"DELETE"
     }
