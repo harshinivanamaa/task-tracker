@@ -124,6 +124,28 @@ router.delete("/permanent/:id", async (req, res) => {
   });
 });
 
+/* ↩ MOVE COMPLETED TO PENDING */
+
+router.put("/undo/:id", async (req, res) => {
+
+  const { id } = req.params;
+
+  const { data, error } = await supabase
+    .from("tasks")
+    .update({
+      status: "pending",
+      completed: false
+    })
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    return res.status(400).json(error);
+  }
+
+  res.json(data);
+
+});
 
 /* ✅ MARK COMPLETE */
 router.put("/:id", async (req, res) => {

@@ -75,44 +75,8 @@ form.addEventListener("submit", async (e) => {
 
 });
 
-/* SEARCH */
 
-document
-  .getElementById("search")
-  .addEventListener("input", (e) => {
 
-    const value =
-      e.target.value.toLowerCase();
-
-    const filtered =
-      allTasks.filter(task =>
-        task.title.toLowerCase().includes(value)
-      );
-
-    updateSearchStats(filtered.length);
-
-  });
-
-/* FILTER */
-
-function filterTasks(type) {
-
-  if (type === "all") {
-
-    updateSearchStats(allTasks.length);
-
-    return;
-
-  }
-
-  const filtered =
-    allTasks.filter(task =>
-      task.status === type
-    );
-
-  updateSearchStats(filtered.length);
-
-}
 
 /* STATS */
 
@@ -137,15 +101,6 @@ function updateStats() {
 
 }
 
-/* SEARCH STATS */
-
-function updateSearchStats(count) {
-
-  document.getElementById("stats").innerText =
-
-    `Matching Tasks: ${count}`;
-
-}
 
 /* DARK MODE */
 

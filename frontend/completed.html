@@ -375,7 +375,11 @@ async function deleteTask(id){
 
 async function undoTask(id){
 
-  alert("Undo feature not added in backend yet");
+  await fetch(`${API}/undo/${id}`,{
+  method:"PUT"
+});
+
+loadTasks();
 
 }
 
